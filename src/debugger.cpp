@@ -51,6 +51,8 @@ void Debugger::print(String sentence){
 void Debugger::println(String sentence){
   if (DEBUG)  Serial.println(sentence);
 }
+
+// If DEBUG is set to 0 then simply define empty functions
 #else
 void Debugger::sleepAlert(unsigned long int _sleepTime){}
 void Debugger::startSampling(){}
