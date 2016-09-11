@@ -58,14 +58,14 @@ void setup()
   digitalWrite(NPN_PIN, HIGH);
   delay(ACC_STARTUPTIME);
 
-  Serial.begin(9600);
-  d.debug_restarted();
+  Serial.begin(115200);
+  d.restarted();
 
   sdWorks = sd.setup();      //initialize SD card module
   accWorks = acc.setup();              //initialize accelerometer
   dhtWorks = dht22.setup();
 
-  d.debug_startSampling();
+  d.startSampling();
 }
 
 
@@ -89,12 +89,24 @@ void loop()
       counter = 0;
 
       digitalWrite(NPN_PIN, LOW);
-      d.debug_sleepAlert(sleepTime);
+      d.sleepAlert(sleepTime);
       sleep.pwrDownMode(); //set sleep mode
       sleep.sleepDelay(sleepTime); //sleep for: sleepTime
       digitalWrite(NPN_PIN, HIGH);
       delay(ACC_STARTUPTIME);
-      d.debug_startSampling();
+      d.startSampling();
     }
+  }
+  else {
+    digitalWrite(NPN_PIN, LOW);
+    d.print("Testing hardware again in a bit...");
+    d.sleepAlert(sleepTime*2);
+    sleep.pwrDownMode();
+    sleep.sleepDelay(sleepTime*2);
+    digitalWrite(NPN_PIN, HIGH);
+    delay(ACC_STARTUPTIME);
+    sdWorks = sd.setup();      //initialize SD card module
+    accWorks = acc.setup();              //initialize accelerometer
+    dhtWorks = dht22.setup();
   }
 }

@@ -20,10 +20,10 @@ bool Accelerometer::setup()
 {
   Wire.begin();
 
-  if (DEBUG) Serial.print(F("Initializing accelerometer..."));
+  d->print(F("Initializing accelerometer..."));
   accelerometer.initialize();
   boolean connectionTest = accelerometer.testConnection();
-  if (DEBUG) Serial.println(connectionTest ? " Successful." : " Failed.");
+  d->print(connectionTest ? " Successful.\n" : " Failed.\n");
 
   return connectionTest;
 };

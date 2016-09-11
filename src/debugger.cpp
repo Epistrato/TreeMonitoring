@@ -5,56 +5,63 @@ Debugger::Debugger()
 {
 
 }
+#if DEBUG
 
-void Debugger::debug_sleepAlert(unsigned long int _sleepTime) {
-  if (DEBUG) {
-    Serial.print(F("Sleeping for (ms): "));
-    Serial.println(_sleepTime);
-    delay(100);
-  }
+void Debugger::sleepAlert(unsigned long int _sleepTime) {
+  print(F("Sleeping for (ms): "));
+  println((String)_sleepTime);
+  delay(100);
+}
+void Debugger::startSampling() {
+  println(F("------> Sampling..."));
 }
 
-void Debugger::debug_startSampling() {
-  if (DEBUG) {
-    Serial.println(F("------> Sampling..."));
-  }
+void Debugger::restarted() {
+  println(F("Restarted"));
 }
 
-void Debugger::debug_restarted() {
-  if (DEBUG) {
-    Serial.println(F("Restarted"));
-  }
+void Debugger::sleepTime(unsigned long int _sleepTime) {
+  print(F("sleepTime read from config.txt on SD: "));
+  println((String)_sleepTime);
 }
 
-void Debugger::debug_sleepTime(unsigned long int _sleepTime) {
-  if (DEBUG) {
-    Serial.print(F("sleepTime read from config.txt on SD: "));
-    Serial.println(_sleepTime);
-  }
-}
+void Debugger::SDinitialization(bool init) {
+  if (init) println(F("SD initialization successful"));
+  else println(F("SD initialization not successful"));
 
-void Debugger::debug_SDinitialization(bool init) {
-  if (DEBUG) {
-    if (init) Serial.println(F("SD initialization successful"));
-    else Serial.println(F("SD initialization not successful"));
-  }
 }
-bool Debugger::debug_OpenFile(bool fileIsOpen, String fileName) {
-
-  if (!fileIsOpen && DEBUG) {
-    Serial.print("Could not open ");
-    Serial.println(fileName);
+bool Debugger::OpenFile(bool fileIsOpen, String fileName) {
+  if (!fileIsOpen) {
+    print("Could not open ");
+    println(fileName);
   }
   return fileIsOpen;
 }
-void Debugger::debug_writeToFile(const char * fileName){
-if (DEBUG) {
-  Serial.print("------> Writing to SD [file:");
-  Serial.print(fileName);
-  Serial.println("]");
-}
+
+void Debugger::writeToFile(const char * fileName){
+  print("------> Writing to SD [file:");
+  print(fileName);
+  println("]");
 }
 
-void Debugger::debug_print(String sentence){
+void Debugger::print(String sentence){
   if (DEBUG)  Serial.print(sentence);
 }
+
+void Debugger::println(String sentence){
+  if (DEBUG)  Serial.println(sentence);
+}
+#else
+void Debugger::sleepAlert(unsigned long int _sleepTime){}
+void Debugger::startSampling(){}
+void Debugger::restarted(){}
+void Debugger::sleepTime(unsigned long int _sleepTime){}
+void Debugger::SDinitialization(bool init){}
+void Debugger::sleepTime(){}
+bool Debugger::OpenFile(bool fileIsOpen, String fileName){
+  return fileIsOpen;
+}
+void Debugger::writeToFile(const char * fileName){}
+void Debugger::print(String sentence){}
+void Debugger::println(String sentence){}
+#endif

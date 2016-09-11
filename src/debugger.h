@@ -18,15 +18,16 @@ class Debugger
     // Methods definitions
     //Debugger(void);
 
-    void debug_sleepAlert(unsigned long int _sleepTime);
-    void debug_startSampling();
-    void debug_restarted();
-    void debug_sleepTime(unsigned long int _sleepTime);
-    void debug_SDinitialization(bool init);
-    void debug_sleepTime();
-    bool debug_OpenFile(bool fileIsOpen, String fileName);
-    void debug_writeToFile(const char * fileName);
-    void debug_print(String sentence);
+    void sleepAlert(unsigned long int _sleepTime);
+    void startSampling();
+    void restarted();
+    void sleepTime(unsigned long int _sleepTime);
+    void SDinitialization(bool init);
+    void sleepTime();
+    bool OpenFile(bool fileIsOpen, String fileName);
+    void writeToFile(const char * fileName);
+    void print(String sentence);
+    void println(String sentence);
 
   public:
 

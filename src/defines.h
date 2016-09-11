@@ -3,7 +3,7 @@
 
 #include "Arduino.h"
 
-#define DEBUG 1       //Turn debugging functions on/off
+#define DEBUG 0       //Turn debugging functions on/off
 
 
 // PIN definitions
