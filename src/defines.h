@@ -3,7 +3,7 @@
 
 #include "Arduino.h"
 
-#define DEBUG 0       //Turn debugging functions on/off
+#define DEBUG 1       //Turn debugging functions on/off
 
 
 // PIN definitions
@@ -22,7 +22,7 @@
 #define MAX_N_SAMPLES 2048
 #define MIN_N_SAMPLES 1024
 #define DEFAULT_N_SAMPLES MIN_N_SAMPLES + EXTRA_SAMPLES
-
+#define DEFAULT_SLEEPTIME 60000
 
 typedef union unpackFloat {
   float f;

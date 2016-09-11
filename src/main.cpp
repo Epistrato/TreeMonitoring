@@ -1,12 +1,12 @@
 /**------> treemonitor.1
 
-  Author: Gianni Massi
-  Year: 2016
-  For: Arduino 1284p + SD card module + GY521 accelerometer + DHT22/DHT21 + DS3231.
+Author: Gianni Massi
+Year: 2016
+For: Arduino 1284p + SD card module + GY521 accelerometer + DHT22/DHT21 + DS3231.
 
-  This sketch samples at regular intervals (1kHz) an accelerometer. After is has collected
-  a predetermined number of samples described by the smpLength variable, it stores them on
-  the SD card connected.
+This sketch samples at regular intervals (1kHz) an accelerometer. After is has collected
+a predetermined number of samples described by the smpLength variable, it stores them on
+the SD card connected.
 */
 
 #include "Arduino.h"
@@ -28,7 +28,7 @@ bool rtcWorks = false;
 
 uint32_t lastReading;    //keep track of the timing of the last data collection
 uint32_t lastBatteryCheck;
-uint32_t sleepTime = 60000; //How long the boards sleeps between sampling periods
+uint32_t sleepTime = DEFAULT_SLEEPTIME; //How long the boards sleeps between sampling periods
 uint16_t smpLength = DEFAULT_N_SAMPLES;    //how many samples are collected in each sampling period
 
 uint16_t counter = 0;          //keeps track of how many times the accelerometer has been sampled
@@ -65,7 +65,13 @@ void setup()
   accWorks = acc.setup();              //initialize accelerometer
   dhtWorks = dht22.setup();
 
-  d.startSampling();
+  if (sdWorks && accWorks){
+    d.startSampling();
+  }else{
+    d.print("Hardware fault. Testing hardware again in ");
+    d.print(String(sleepTime*2));
+    d.println(" s.");
+  }
 }
 
 
@@ -74,7 +80,7 @@ void setup()
 
 void loop()
 {
-  if (sdWorks) {
+  if (sdWorks && accWorks) {
     if (micros () - lastReading >= 1000) {
       lastReading = micros();
       acc.sample(counter);
@@ -99,11 +105,11 @@ void loop()
   }
   else {
     digitalWrite(NPN_PIN, LOW);
-    d.print("Testing hardware again in a bit...");
     d.sleepAlert(sleepTime*2);
     sleep.pwrDownMode();
     sleep.sleepDelay(sleepTime*2);
     digitalWrite(NPN_PIN, HIGH);
+    d.println("Woke up. Testing hardware...");
     delay(ACC_STARTUPTIME);
     sdWorks = sd.setup();      //initialize SD card module
     accWorks = acc.setup();              //initialize accelerometer
