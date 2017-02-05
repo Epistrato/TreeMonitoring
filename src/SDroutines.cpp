@@ -79,9 +79,9 @@ void SDroutines::write() {
     //loop through each sample to be written to file
     for (uint32_t i = 0; i < *smpLength; i++) {
       //LOG in Bytes
-      writeIntToByte(myFile, ax[i]);
-      writeIntToByte(myFile, ay[i]);
-      writeIntToByte(myFile, az[i]);
+      // writeIntToByte(myFile, ax[i]);
+      // writeIntToByte(myFile, ay[i]);
+      // writeIntToByte(myFile, az[i]);
 
       debugString = String(ax[i + 10]) + "," + String(ay[i + 10]) + "," + String(az[i + 10]) + "\n"; //discard the first 10 samples
       myFile.print(debugString);
@@ -159,5 +159,19 @@ void SDroutines::writeDhtError(File &dir, int &error) {
   dir.write((byte)(-error));
   for (int i = 0; i < 4; i++) {
     dir.write('0');
+  }
+}
+
+void SDroutines::writeAccError(){
+  myFile = SD.open("/DATA/", FILE_WRITE);
+
+  long newFileId = getLastFile(myFile) + 1;
+  String stringFileDir = "/DATA/" + String(newFileId) + ".csv";
+  const char * fileDir = stringFileDir.c_str() ;
+
+  myFile = SD.open(fileDir, FILE_WRITE);
+
+  if (d->OpenFile(myFile, fileDir)) {
+      myFile.print("Accelerometer error\n");
   }
 }

@@ -3,8 +3,13 @@
 
 #include "Arduino.h"
 
-#define DEBUG 1       //Turn debugging functions on/off
+#define BAUD_9600   9600
+#define BAUD_38400  38400
+#define BAUD_115200 115200
 
+
+#define DEBUG 0       //Turn debugging functions on/off
+#define DEFAULT_BAUDRATE BAUD_115200
 
 // PIN definitions
 #define SD_PIN 4      //CS pin for SD module

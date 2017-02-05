@@ -23,6 +23,7 @@ class SDroutines
     void writeFloatToByte(File &dir, float &data);
     void writeIntToByte(File &dir, int16_t &data);
     void writeDhtError(File &dir, int &error);
+    void writeAccError();
 
     File myFile;          //class for writing/reading to SD card
     uint32_t * sleepTime; //How long the boards sleeps between sampling periods
