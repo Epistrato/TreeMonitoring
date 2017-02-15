@@ -8,7 +8,7 @@
 #define BAUD_115200 115200
 
 
-#define DEBUG 0       //Turn debugging functions on/off
+#define DEBUG 1       //Turn debugging functions on/off
 #define DEFAULT_BAUDRATE BAUD_115200
 
 // PIN definitions
@@ -16,6 +16,10 @@
 #define LED_PIN 1    //pin for LED (for visual feedback)
 #define NPN_PIN 21    //pin for NPN transistor
 #define DHT_PIN 2// DHT pin
+
+// I2C addresses
+// #define ACC_I2CADRESS 0x68 // Accelerometer address without (AD0 LOW)
+#define ACC_I2CADRESS 0x69 // Accelerometer address (AD0 HIGH)
 
 //TODO: find out startup time
 #define ACC_STARTUPTIME 100 // ms that the accelerometer takes to startup

@@ -17,6 +17,7 @@ class SDroutines
     SDroutines(uint32_t * _sleepTime, uint16_t * _smpLength, Debugger *_d, int16_t (&_ax)[MAX_N_SAMPLES], int16_t (&_ay)[MAX_N_SAMPLES], int16_t (&_az)[MAX_N_SAMPLES]);
     ~SDroutines();
     bool setup();
+    void close();
     void readSettings();
     void write();
     long getLastFile(File dir);

@@ -7,7 +7,7 @@ ax(_ax),
 ay(_ay),
 az(_az)
 {
-    accelerometer = *(new MPU6050);
+    accelerometer = *(new MPU6050(ACC_I2CADRESS));
 };
 
 // Accelerometer::~Accelerometer()

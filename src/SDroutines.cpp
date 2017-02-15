@@ -12,7 +12,7 @@ SDroutines::~SDroutines()
 {}
 
 
-/*---------->setupSD
+/*---------->setup
   Sets up the sd card module
 */
 bool SDroutines::setup() {
@@ -23,6 +23,15 @@ bool SDroutines::setup() {
   }
   return sdTest;
 }
+
+
+/*---------->close
+  Closes the sd card module
+*/
+void SDroutines::close(){
+  SD.end();
+}
+
 
 /*---------->readSettings
   Reads settings from a file called config.txt on the sd
@@ -38,7 +47,7 @@ void SDroutines::readSettings() {
     }
     myFile.close();             // close the file:
     *sleepTime = (uint32_t)configs.toInt();// Assign to variable
-    d->sleepTime((int)sleepTime);
+    d->sleepTime((uint32_t)*sleepTime);
   }
 }
 
@@ -60,7 +69,7 @@ void SDroutines::write() {
   if (d->OpenFile(myFile, fileDir)) {
     d->writeToFile(fileDir);
 
-    String debugString;
+    String dataString;
     //short am2301 = readAM2301();//read humidity/temperature sensor (returns 1 for success)
 
     // if (false) {
@@ -73,8 +82,8 @@ void SDroutines::write() {
     //   debugString = "E," + String(am2301) + "\n";
     // }
 
-    d->print(debugString);
-    myFile.print(debugString);
+    d->print(dataString);
+    myFile.print(dataString);
 
     //loop through each sample to be written to file
     for (uint32_t i = 0; i < *smpLength; i++) {
@@ -83,9 +92,9 @@ void SDroutines::write() {
       // writeIntToByte(myFile, ay[i]);
       // writeIntToByte(myFile, az[i]);
 
-      debugString = String(ax[i + 10]) + "," + String(ay[i + 10]) + "," + String(az[i + 10]) + "\n"; //discard the first 10 samples
-      myFile.print(debugString);
-      d->print(debugString);
+      dataString = String(ax[i + 10]) + "\t" + String(ay[i + 10]) + "\t" + String(az[i + 10]) + "\n"; //discard the first 10 samples
+      myFile.print(dataString);
+      // d->print(dataString);
     }
     d->print(F("Finished writing to SD\n"));
   } else {

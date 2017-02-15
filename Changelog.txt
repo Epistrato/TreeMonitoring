@@ -1,0 +1,6 @@
+15.02.2017 v0.0.1
+- Added addresses for accelerometer as I2C slave with AD0 HIGH and LOW
+- Added close() function to SDroutines which allows to do setup of sd again harmlessly
+- Added setup of sd after wake up since we can now do it (NOTE: Maybe best to switch off SD with pin from micro because depending on sd type it might waste 20-40m)
+- Various changes to debugging.
+- Changed separator in log to tab because Excel picks it up as a 3 column tab right away this way.

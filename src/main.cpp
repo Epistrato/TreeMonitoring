@@ -92,6 +92,7 @@ void loop()
     if (counter >= smpLength + 10) {
 
       sd.write();
+      sd.close();
       flashLed(1);
       counter = 0;
 
@@ -103,6 +104,7 @@ void loop()
       delay(ACC_STARTUPTIME);
       d.println("Woke up. Testing hardware...");
       accWorks = acc.setup();              //initialize accelerometer
+      sdWorks = sd.setup();
       dhtWorks = dht22.setup();
       d.startSampling();
     }
@@ -115,13 +117,15 @@ void loop()
       digitalWrite(LED_PIN, HIGH);
     }
     digitalWrite(NPN_PIN, LOW);
-    d.sleepAlert(sleepTime*2);
+    sd.close();
+    d.sleepAlert(sleepTime);
     sleep.pwrDownMode();
-    sleep.sleepDelay(sleepTime*2);
+    sleep.sleepDelay(sleepTime);
     digitalWrite(NPN_PIN, HIGH);
     d.println("Woke up. Testing hardware...");
     delay(ACC_STARTUPTIME);
     accWorks = acc.setup();              //initialize accelerometer
+    sdWorks = sd.setup();
     dhtWorks = dht22.setup();
   }
 }

@@ -8,8 +8,9 @@ Debugger::Debugger()
 #if DEBUG
 
 void Debugger::sleepAlert(unsigned long int _sleepTime) {
-  print(F("Sleeping for (ms): "));
-  println((String)_sleepTime);
+  print(F("Sleeping for: "));
+  print((String)_sleepTime);
+  println(F(" ms"));
   delay(100);
 }
 void Debugger::startSampling() {
@@ -26,14 +27,18 @@ void Debugger::sleepTime(unsigned long int _sleepTime) {
 }
 
 void Debugger::SDinitialization(bool init) {
-  if (init) println(F("SD initialization successful"));
-  else println(F("SD initialization not successful"));
+  if (init) println(F("SD initialization successful."));
+  else println(F("SD initialization not successful."));
 
 }
 bool Debugger::OpenFile(bool fileIsOpen, String fileName) {
   if (!fileIsOpen) {
-    print("Could not open ");
+    println("###############################################################");
+    println(" ");
+    print("                       Could not open ");
     println(fileName);
+    println(" ");
+    println("###############################################################");
   }
   return fileIsOpen;
 }
