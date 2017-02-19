@@ -43,7 +43,7 @@ bool Debugger::OpenFile(bool fileIsOpen, String fileName) {
   return fileIsOpen;
 }
 
-void Debugger::writeToFile(const char * fileName){
+void Debugger::writeToFile(String fileName){
   print("------> Writing to SD [file:");
   print(fileName);
   println("]");

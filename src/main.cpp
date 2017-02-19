@@ -1,3 +1,5 @@
+#pragma GCC diagnostic ignored "-Wreorder"
+
 /**------> treemonitor.1
 
 Author: Gianni Massi
@@ -13,6 +15,7 @@ the SD card connected.
 #include <Sleep_n0m1.h>
 
 #include <defines.h>
+#include <RTCroutines.h>
 #include <SDroutines.h>
 #include <ACCroutines.h>
 #include "DHTroutines.h"
@@ -46,6 +49,7 @@ float humidity;
 Sleep sleep;
 
 Debugger d;
+RTCroutines rtc(&sleepTime, &d);
 SDroutines sd(&sleepTime, &smpLength, &d,  ax, ay, az);
 Accelerometer acc(&d, ax, ay, az);
 DHTsensor dht22(&temperature, &humidity);
@@ -62,6 +66,7 @@ void setup()
 
   d.restarted();
 
+  rtcWorks = rtc.setup();
   sdWorks = sd.setup();      //initialize SD card module
   accWorks = acc.setup();              //initialize accelerometer
   dhtWorks = dht22.setup();
@@ -90,8 +95,7 @@ void loop()
 
     //gather 10 values more than needed so that the first 10 can be discarded
     if (counter >= smpLength + 10) {
-
-      sd.write();
+      sd.logData(rtc.getDateTimeString());
       sd.close();
       flashLed(1);
       counter = 0;
@@ -111,7 +115,7 @@ void loop()
   }
   else {
     if (!accWorks && sdWorks){
-      sd.writeAccError();
+      sd.writeAccError(rtc.getDateTimeString());
     }
     else if(!sdWorks){
       digitalWrite(LED_PIN, HIGH);

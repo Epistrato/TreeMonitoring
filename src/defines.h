@@ -38,5 +38,7 @@ typedef union unpackFloat {
   byte b[4];
 } UNPACKFLOAT;
 
+const int LENGTH_DATETIME = 6;
+typedef char DateTimeString[LENGTH_DATETIME];
 
 #endif

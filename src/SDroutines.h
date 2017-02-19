@@ -1,5 +1,6 @@
 #ifndef SDroutines_h
 #define SDroutines_h
+#define _DATA_DIR "/DATA/"
 
 #include "Arduino.h"    // Arduino header
 #include <defines.h>    // Defines header
@@ -19,14 +20,16 @@ class SDroutines
     bool setup();
     void close();
     void readSettings();
-    void write();
-    long getLastFile(File dir);
+    void logData(String dateTimeString);
+    String getLogPath(String dateTimeString);
+    String getLogDir(String dateTimeString);
+    String getDataDir();
     void writeFloatToByte(File &dir, float &data);
     void writeIntToByte(File &dir, int16_t &data);
     void writeDhtError(File &dir, int &error);
-    void writeAccError();
+    void writeAccError(String dateTimeString);
 
-    File myFile;          //class for writing/reading to SD card
+    // File myFile;          //class for writing/reading to SD card
     uint32_t * sleepTime; //How long the boards sleeps between sampling periods
     uint16_t * smpLength;    //how many samples are collected in each sampling period
 

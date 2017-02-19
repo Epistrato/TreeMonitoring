@@ -1,3 +1,11 @@
+19.02.2017 v.0.0.2
+- Added RTCroutines class, which manages the rtc clock. Including setup function and getDateTimeString function.
+- Changed filename used for log files to use a string with date and time in a directory with the date formatted as /DATA/YYMMDD/HHMMSS.csv .
+- Added fail safe procedure that tries to make directories for log files if they don't exists.
+- Changed signature of writeToFile in debugger class to use String.
+- Added rtc to main.h as well. It is initialized with the other modules and its dateTimeString is passed when logging data to file.
+
+
 15.02.2017 v0.0.1
 - Added addresses for accelerometer as I2C slave with AD0 HIGH and LOW
 - Added close() function to SDroutines which allows to do setup of sd again harmlessly

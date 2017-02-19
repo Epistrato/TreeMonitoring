@@ -25,7 +25,7 @@ class Debugger
     void SDinitialization(bool init);
     void sleepTime();
     bool OpenFile(bool fileIsOpen, String fileName);
-    void writeToFile(const char * fileName);
+    void writeToFile(String fileName);
     void print(String sentence);
     void println(String sentence);
 
