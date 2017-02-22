@@ -1,3 +1,9 @@
+22.02.2017 v0.0.3
+- Added explicit requirement of version for libraries for which a version was available (in project configuration file platformio.ini). This fixes an issue with compiling the code on other machines from PlatformIO, caused by the inclusion of a different version of the RTC library (>2.0.0 instead of 1.0.1).
+- TODO: Find out version of libraries for which it was not possible to explicit a version requirement.
+- TODO: Update code to support latest version of RTC library (which is assumed to have improved!)
+
+
 19.02.2017 v.0.0.2
 - Added RTCroutines class, which manages the rtc clock. Including setup function and getDateTimeString function.
 - Changed filename used for log files to use a string with date and time in a directory with the date formatted as /DATA/YYMMDD/HHMMSS.csv .
