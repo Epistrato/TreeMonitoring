@@ -59,6 +59,7 @@ void setup()
   pinMode(LED_PIN, OUTPUT);
   pinMode(SD_PIN, OUTPUT);
   pinMode(NPN_PIN, OUTPUT);
+
   digitalWrite(NPN_PIN, HIGH);
   delay(ACC_STARTUPTIME);
 
@@ -87,7 +88,7 @@ void setup()
 void loop()
 {
   if (sdWorks && accWorks) {
-    if (micros () - lastReading >= 1000) {
+    if (micros () - lastReading >= 4000) {
       lastReading = micros();
       acc.sample(counter);
       counter++;

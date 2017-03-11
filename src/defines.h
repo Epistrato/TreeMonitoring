@@ -30,7 +30,7 @@
 // TODO: arbitrary for now, find out based on memory usage
 #define MAX_N_SAMPLES 2048
 #define MIN_N_SAMPLES 1024
-#define DEFAULT_N_SAMPLES MIN_N_SAMPLES + EXTRA_SAMPLES
+#define DEFAULT_N_SAMPLES 2000//MIN_N_SAMPLES + EXTRA_SAMPLES
 #define DEFAULT_SLEEPTIME 60000
 
 typedef union unpackFloat {
